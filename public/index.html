@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Coolify App</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .status {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #5a6fd8;
+        }
+        .footer {
+            margin-top: 2rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Welcome!</h1>
+        <p class="subtitle">Your Node.js app is running successfully on Coolify!</p>
+        
+        <div class="status" id="status">
+            <div>Status: <span style="color: #28a745;">●</span> Running</div>
+            <div>Server: Node.js + Express</div>
+            <div>Deployed with: Coolify</div>
+        </div>
+
+        <button class="button" onclick="checkHealth()">Check Health</button>
+        <button class="button" onclick="getInfo()">Get Info</button>
+        
+        <div id="result" style="margin-top: 1rem;"></div>
+        
+        <div class="footer">
+            <p>🎉 Congratulations on your first self-hosted web service!</p>
+            <p>Built with Node.js, Express, and deployed via Coolify</p>
+        </div>
+    </div>
+
+    <script>
+        async function checkHealth() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `
+                    <div class="status">
+                        <strong>Health Check:</strong><br>
+                        Status: ${data.status}<br>
+                        Uptime: ${Math.floor(data.uptime)}s<br>
+                        Timestamp: ${new Date(data.timestamp).toLocaleString()}
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <div class="status" style="color: red;">
+                        Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        async function getInfo() {
+            try {
+                const response = await fetch('/api/info');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `
+                    <div class="status">
+                        <strong>App Info:</strong><br>
+                        Name: ${data.name}<br>
+                        Version: ${data.version}<br>
+                        Description: ${data.description}<br>
+                        Author: ${data.author}
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <div class="status" style="color: red;">
+                        Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
