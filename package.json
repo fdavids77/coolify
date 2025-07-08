@@ -1,0 +1,19 @@
+{
+  "name": "my-first-coolify-app",
+  "version": "1.0.0",
+  "description": "Simple Node.js app for Coolify deployment",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["nodejs", "express", "coolify"],
+  "author": "Your Name",
+  "license": "MIT"
+}
